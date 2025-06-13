@@ -3,284 +3,734 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FurniShop</title>
+  <title>FurniShop - Premium Furniture</title>
   <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Swiper CSS for slider -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    body { 
+      font-family: 'Inter', sans-serif;
+      background: #f9f9f9;
+      overflow-x: hidden;
+    }
+    
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+
+    
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    
+    /* Hover Effects */
+    .zoom-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .zoom-hover:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .btn-hover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .nav-link {
+      position: relative;
+      padding-bottom: 5px;
+    }
+    
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #0B7077;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    
+    /* Stats Section Animation */
+  
+    
+  
+    
+    /* Product Animation */
+    .product-card {
+      perspective: 1000px;
+    }
+    
+    .product-inner {
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    
+    .product-card:hover .product-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .product-front, .product-back {
+      backface-visibility: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .product-back {
+      transform: rotateY(180deg);
+      background: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
   </style>
 </head>
-<body class="bg-white text-gray-300">
+<body class="bg-white text-gray-700">
   <!-- Header -->
-<header class="relative min-h-screen bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1170&q=80');">
-  <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-  <div class="relative z-10 max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
-    <div class="text-2xl font-extrabold bg-white text-black px-4 py-1 rounded-sm tracking-wide">
-      FurniShop
+  <header class="relative min-h-screen bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1170&q=80');">
+    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+      <div class="text-2xl font-extrabold bg-white text-black px-4 py-1 rounded-sm tracking-wide animate-fadeIn">
+        FurniShop
+      </div>
+      <nav class="hidden md:flex space-x-8 text-white font-medium">
+        <a href="#" class="nav-link hover:underline">Home</a>
+        <a href="#" class="nav-link hover:underline">About</a>
+        <a href="#" class="nav-link hover:underline">Collections</a>
+        <a href="#" class="nav-link hover:underline">Testimonials</a>
+        <a href="#" class="nav-link hover:underline">Contact</a>
+      </nav>
+ 
     </div>
-    <nav class="space-x-8 text-white font-medium">
-      <a href="#" class="hover:underline">Home</a>
-      <a href="#" class="hover:underline">About</a>
-      <a href="#" class="hover:underline">Features</a>
-      <a href="#" class="hover:underline">Contact</a>
-    </nav>
-  </div>
-  <div class="relative z-10 flex flex-col justify-center items-center text-center px-4 min-h-[calc(100vh-80px)]">
-    <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 max-w-3xl">Creative Home Simplify Your Furniture</h1>
-    <p class="text-white text-md md:text-lg max-w-2xl mb-6">Do i have consent to record this meeting gain locaioin, root-and-branch, review, nor game plan who’s the goto</p>
-    <button class="bg-white text-black text-lg font-bold px-6 py-3 rounded-full shadow-lg flex items-center gap-2 hover:bg-gray-100 transition">
-      Shop Now
-    </button>
-  </div>
+    
+    <div class="relative z-10 flex flex-col justify-center items-center text-center px-4 min-h-[calc(100vh-80px)]">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 max-w-3xl animate-fadeIn delay-100">
+        Creative Home Simplify Your Furniture
+      </h1>
+      <p class="text-white text-md md:text-lg max-w-2xl mb-6 animate-fadeIn delay-200">
+        Elevate your living space with our premium furniture collection designed for comfort and style.
+      </p>
+      <button class="bg-white text-black text-lg font-bold px-6 py-3 rounded-full shadow-lg flex items-center gap-2 btn-hover animate-fadeIn delay-300">
+        Shop Now <i class="fas fa-arrow-right animate-float"></i>
+      </button>
+    </div>
 
-  <!-- Stats Section Below the Header -->
-  <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-[#0B7077] text-white rounded-xl shadow-lg px-10 py-6 flex flex-col md:flex-row items-center justify-between gap-10 w-[90%] max-w-5xl">
-    <div class="text-center">
-      <div class="text-3xl font-bold">7</div>
-      <div class="text-sm mt-1">Year Experience</div>
-    </div>
-    <div class="text-center">
-      <div class="text-3xl font-bold">2</div>
-      <div class="text-sm mt-1">Opened in the country</div>
-    </div>
-    <div class="text-center">
-      <div class="text-3xl font-bold">10k+</div>
-      <div class="text-sm mt-1">Furniture sold</div>
-    </div>
-    <div class="text-center">
-      <div class="text-3xl font-bold">260+</div>
-      <div class="text-sm mt-1">Variant Furniture</div>
-    </div>
-  </div>
-</header>
-
-<section class="py-16 bg-gray-50">
-
-
-</section>
-  <!-- Aesthetic Section -->
-<!-- Services Section -->
-<section class="py-16 bg-white">
-  <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
-    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=870&q=80" alt="Gray Couch" class="rounded-xl shadow-lg">
-    <div>
-      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">We Create Your Home More Aesteic</h2>
-      <p class="text-gray-600 mb-6">Furniture power is a software as services for multiperpose business management system,</p>
-      <div class="space-y-4">
-        <div class="flex items-start gap-3">
-          <span class="mt-1 text-green-600">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z" clip-rule="evenodd" /></svg>
-          </span>
-          <div>
-            <h3 class="font-semibold text-lg text-gray-800">Valuation Services</h3>
-            <p class="text-sm text-gray-600">Sometimes features require a short description. This can be detailed description</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-3">
-          <span class="mt-1 text-green-600">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z" clip-rule="evenodd" /></svg>
-          </span>
-          <div>
-            <h3 class="font-semibold text-lg text-gray-800">Development of Furniture Models</h3>
-            <p class="text-sm text-gray-600">Sometimes features require a short description. This can be detailed description</p>
-          </div>
-        </div>
+    <!-- Stats Section Below the Header -->
+<div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-[#0B7077] text-white rounded-xl shadow-lg px-10 py-6 flex flex-col md:flex-row items-center justify-between gap-10 w-[90%] max-w-5xl">
+      <div class="text-center stats-card p-4 rounded-lg">
+        <div class="text-3xl font-bold">7</div>
+        <div class="text-sm mt-1">Year Experience</div>
+      </div>
+      <div class="text-center stats-card p-4 rounded-lg">
+        <div class="text-3xl font-bold">12</div>
+        <div class="text-sm mt-1">Opened in the country</div>
+      </div>
+      <div class="text-center stats-card p-4 rounded-lg">
+        <div class="text-3xl font-bold">10k+</div>
+        <div class="text-sm mt-1">Furniture sold</div>
+      </div>
+      <div class="text-center stats-card p-4 rounded-lg">
+        <div class="text-3xl font-bold">260+</div>
+        <div class="text-sm mt-1">Variant Furniture</div>
       </div>
     </div>
-  </div>
-</section>
-  <!-- New In Store Now -->
-<!-- New In Store Section -->
-<section class="py-16 bg-white">
-  <div class="max-w-7xl mx-auto px-4">
+  </header>
+
+  <section class="py-16 bg-gray-50">
    
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      <div class="relative group">
-        <h2 class="text-2xl font-bold mb-6 text-gray-900">New In <br>Store Now</h2>
-    <p class="text-sm text-gray-600 mb-4">Get the latest items immediately with promo prices</p>
-    <a href="#" class="text-sm text-blue-600 hover:underline inline-block mb-8">Check All →</a>
-      </div>
-      <div class="relative group">
-        <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=400&q=80" alt="Bed" class="rounded-xl w-full">
-        <span class="absolute bottom-2 left-2 text-white font-bold text-lg">Bed</span>
-      </div>
-      <div class="relative group">
-        <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=400&q=80" alt="Cupboard" class="rounded-xl w-full">
-        <span class="absolute bottom-2 left-2 text-white font-bold text-lg">Cupboard</span>
-      </div>
-      <div class="relative group">
-        <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=400&q=80" alt="Lighting" class="rounded-xl w-full">
-        <span class="absolute bottom-2 left-2 text-white font-bold text-lg">Lighting</span>
+
+  </section>
+
+  <!-- Aesthetic Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=870&q=80" alt="Gray Couch" class="rounded-xl shadow-lg zoom-hover">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">We Create Your Home More Aesthetic</h2>
+        <p class="text-gray-600 mb-6">Furniture power is a software as services for multipurpose business management system,</p>
+        <div class="space-y-4">
+          <div class="flex items-start gap-3 card-hover p-4 rounded-lg">
+            <span class="mt-1 text-[#0B7077]">
+              <i class="fas fa-check-circle text-2xl"></i>
+            </span>
+            <div>
+              <h3 class="font-semibold text-lg text-gray-800">Valuation Services</h3>
+              <p class="text-sm text-gray-600">Sometimes features require a short description. This can be detailed description</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 card-hover p-4 rounded-lg">
+            <span class="mt-1 text-[#0B7077]">
+              <i class="fas fa-check-circle text-2xl"></i>
+            </span>
+            <div>
+              <h3 class="font-semibold text-lg text-gray-800">Development of Furniture Models</h3>
+              <p class="text-sm text-gray-600">Sometimes features require a short description. This can be detailed description</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 card-hover p-4 rounded-lg">
+            <span class="mt-1 text-[#0B7077]">
+              <i class="fas fa-check-circle text-2xl"></i>
+            </span>
+            <div>
+              <h3 class="font-semibold text-lg text-gray-800">Custom Design Solutions</h3>
+              <p class="text-sm text-gray-600">Sometimes features require a short description. This can be detailed description</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-  <!-- Best Furniture Manufacturer -->
-  <section class="py-16">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
-      <div class="md:w-1/2">
-        <h3 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">The Best Furniture Manufacturer Of Your Choice</h3>
-        <p class="text-gray-600">We have a wide selection of aesthetic furniture with minimalist design to help you build your dream space.</p>
+  </section>
+
+  <!-- New In Store Now -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="animate-fadeIn">
+          <h2 class="text-3xl font-bold mb-4 text-gray-900">New In <br>Store Now</h2>
+          <p class="text-sm text-gray-600 mb-6">Get the latest items immediately with promo prices</p>
+          <a href="#" class="text-sm text-[#0B7077] hover:underline inline-flex items-center gap-2 font-semibold">
+            Check All <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="relative group animate-fadeIn delay-100">
+          <div class="overflow-hidden rounded-xl">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" alt="Bed" class="w-full h-64 object-cover transition duration-500 group-hover:scale-110">
+          </div>
+          <span class="absolute bottom-4 left-4 bg-[#0B7077] text-white px-4 py-2 rounded-full font-medium">Bed</span>
+        </div>
+        <div class="relative group animate-fadeIn delay-200">
+          <div class="overflow-hidden rounded-xl">
+            <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&w=600&q=80" alt="Cupboard" class="w-full h-64 object-cover transition duration-500 group-hover:scale-110">
+          </div>
+          <span class="absolute bottom-4 left-4 bg-[#0B7077] text-white px-4 py-2 rounded-full font-medium">Cupboard</span>
+        </div>
+        <div class="relative group animate-fadeIn delay-300">
+          <div class="overflow-hidden rounded-xl">
+            <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=600&q=80" alt="Lighting" class="w-full h-64 object-cover transition duration-500 group-hover:scale-110">
+          </div>
+          <span class="absolute bottom-4 left-4 bg-[#0B7077] text-white px-4 py-2 rounded-full font-medium">Lighting</span>
+        </div>
       </div>
-      <div class="md:w-1/2">
-        <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=400&q=80" class="rounded-xl">
+    </div>
+  </section>
+
+  <!-- Best Furniture Manufacturer -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+      <div class="md:w-1/2 animate-fadeIn">
+        <h3 class="text-3xl font-bold mb-4 text-gray-900">The Best Furniture Manufacturer Of Your Choice</h3>
+        <p class="text-gray-600 mb-6">We have a wide selection of aesthetic furniture with minimalist design to help you build your dream space.</p>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-gray-100 p-4 rounded-lg card-hover">
+            <i class="fas fa-truck text-2xl text-[#0B7077] mb-2"></i>
+            <h4 class="font-bold">Free Shipping</h4>
+            <p class="text-sm">On all orders over $99</p>
+          </div>
+          <div class="bg-gray-100 p-4 rounded-lg card-hover">
+            <i class="fas fa-calendar-check text-2xl text-[#0B7077] mb-2"></i>
+            <h4 class="font-bold">30 Days Return</h4>
+            <p class="text-sm">Money back guarantee</p>
+          </div>
+        </div>
+      </div>
+      <div class="md:w-1/2 animate-fadeIn delay-200">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?auto=format&fit=crop&w=600&q=80" class="rounded-xl shadow-lg w-full">
+          <div class="absolute -bottom-6 -right-6 bg-[#0B7077] text-white p-6 rounded-lg shadow-xl animate-float">
+            <div class="text-3xl font-bold">15+</div>
+            <div class="text-sm">Years Experience</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Product List -->
   <section class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <h4 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">All Product</h4>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
-        <div class="bg-white p-4 rounded-xl shadow-md">
-          <img src="https://images.unsplash.com/photo-1602524209021-3df4dc9c78af?auto=format&fit=crop&w=400&q=80" class="mx-auto mb-4 rounded">
-          <p class="font-semibold">Ceiling Light</p>
-          <p class="text-sm text-gray-500">$120.00</p>
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h4 class="text-3xl font-bold mb-4 text-gray-900">All Products</h4>
+        <p class="text-gray-600 max-w-xl mx-auto">Discover our handpicked selection of premium furniture for every room in your home.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="product-card bg-white rounded-xl shadow-md overflow-hidden h-80 relative">
+          <div class="product-inner h-full">
+            <div class="product-front h-full flex flex-col">
+              <div class="h-48 bg-gray-200 flex items-center justify-center">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+              </div>
+              <div class="p-4 flex-grow flex flex-col">
+                <p class="font-semibold text-gray-900">Ceiling Light</p>
+                <p class="text-[#0B7077] font-bold mt-2">$120.00</p>
+                <button class="mt-auto bg-[#0B7077] text-white py-2 rounded-lg btn-hover">Add to Cart</button>
+              </div>
+            </div>
+            <div class="product-back">
+              <h5 class="font-bold text-lg mb-2">Ceiling Light</h5>
+              <p class="text-sm mb-4">Modern minimalist ceiling light with adjustable brightness</p>
+              <div class="flex gap-2 mb-4">
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Modern</span>
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Minimalist</span>
+              </div>
+              <button class="bg-[#0B7077] text-white py-2 px-4 rounded-lg btn-hover">Quick View</button>
+            </div>
+          </div>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-md">
-          <img src="https://images.unsplash.com/photo-1588854337221-4c0e6a8e3b81?auto=format&fit=crop&w=400&q=80" class="mx-auto mb-4 rounded">
-          <p class="font-semibold">Wood Chair</p>
-          <p class="text-sm text-gray-500">$80.00</p>
+        
+        <div class="product-card bg-white rounded-xl shadow-md overflow-hidden h-80 relative">
+          <div class="product-inner h-full">
+            <div class="product-front h-full flex flex-col">
+              <div class="h-48 bg-gray-200 flex items-center justify-center">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+              </div>
+              <div class="p-4 flex-grow flex flex-col">
+                <p class="font-semibold text-gray-900">Wood Chair</p>
+                <p class="text-[#0B7077] font-bold mt-2">$80.00</p>
+                <button class="mt-auto bg-[#0B7077] text-white py-2 rounded-lg btn-hover">Add to Cart</button>
+              </div>
+            </div>
+            <div class="product-back">
+              <h5 class="font-bold text-lg mb-2">Wood Chair</h5>
+              <p class="text-sm mb-4">Handcrafted wooden chair with ergonomic design</p>
+              <div class="flex gap-2 mb-4">
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Ergonomic</span>
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Handcrafted</span>
+              </div>
+              <button class="bg-[#0B7077] text-white py-2 px-4 rounded-lg btn-hover">Quick View</button>
+            </div>
+          </div>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-md">
-          <img src="https://images.unsplash.com/photo-1622445272679-cc9c3f4e0fcb?auto=format&fit=crop&w=400&q=80" class="mx-auto mb-4 rounded">
-          <p class="font-semibold">Paper Cupboard</p>
-          <p class="text-sm text-gray-500">$150.00</p>
+        
+        <div class="product-card bg-white rounded-xl shadow-md overflow-hidden h-80 relative">
+          <div class="product-inner h-full">
+            <div class="product-front h-full flex flex-col">
+              <div class="h-48 bg-gray-200 flex items-center justify-center">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+              </div>
+              <div class="p-4 flex-grow flex flex-col">
+                <p class="font-semibold text-gray-900">Paper Cupboard</p>
+                <p class="text-[#0B7077] font-bold mt-2">$150.00</p>
+                <button class="mt-auto bg-[#0B7077] text-white py-2 rounded-lg btn-hover">Add to Cart</button>
+              </div>
+            </div>
+            <div class="product-back">
+              <h5 class="font-bold text-lg mb-2">Paper Cupboard</h5>
+              <p class="text-sm mb-4">Eco-friendly cupboard made from recycled paper materials</p>
+              <div class="flex gap-2 mb-4">
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Eco-friendly</span>
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Recycled</span>
+              </div>
+              <button class="bg-[#0B7077] text-white py-2 px-4 rounded-lg btn-hover">Quick View</button>
+            </div>
+          </div>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-md">
-          <img src="https://images.unsplash.com/photo-1628254694782-96a90eb59d00?auto=format&fit=crop&w=400&q=80" class="mx-auto mb-4 rounded">
-          <p class="font-semibold">Old Guardian Sofa</p>
-          <p class="text-sm text-gray-500">$210.00</p>
+        
+        <div class="product-card bg-white rounded-xl shadow-md overflow-hidden h-80 relative">
+          <div class="product-inner h-full">
+            <div class="product-front h-full flex flex-col">
+              <div class="h-48 bg-gray-200 flex items-center justify-center">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+              </div>
+              <div class="p-4 flex-grow flex flex-col">
+                <p class="font-semibold text-gray-900">Old Guardian Sofa</p>
+                <p class="text-[#0B7077] font-bold mt-2">$210.00</p>
+                <button class="mt-auto bg-[#0B7077] text-white py-2 rounded-lg btn-hover">Add to Cart</button>
+              </div>
+            </div>
+            <div class="product-back">
+              <h5 class="font-bold text-lg mb-2">Old Guardian Sofa</h5>
+              <p class="text-sm mb-4">Vintage-inspired sofa with modern comfort features</p>
+              <div class="flex gap-2 mb-4">
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Vintage</span>
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Comfort</span>
+              </div>
+              <button class="bg-[#0B7077] text-white py-2 px-4 rounded-lg btn-hover">Quick View</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="product-card bg-white rounded-xl shadow-md overflow-hidden h-80 relative">
+          <div class="product-inner h-full">
+            <div class="product-front h-full flex flex-col">
+              <div class="h-48 bg-gray-200 flex items-center justify-center">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+              </div>
+              <div class="p-4 flex-grow flex flex-col">
+                <p class="font-semibold text-gray-900">Wood Chair</p>
+                <p class="text-[#0B7077] font-bold mt-2">$80.00</p>
+                <button class="mt-auto bg-[#0B7077] text-white py-2 rounded-lg btn-hover">Add to Cart</button>
+              </div>
+            </div>
+            <div class="product-back">
+              <h5 class="font-bold text-lg mb-2">Wood Chair</h5>
+              <p class="text-sm mb-4">Handcrafted wooden chair with ergonomic design</p>
+              <div class="flex gap-2 mb-4">
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Ergonomic</span>
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Handcrafted</span>
+              </div>
+              <button class="bg-[#0B7077] text-white py-2 px-4 rounded-lg btn-hover">Quick View</button>
+            </div>
+          </div>
+        </div>
+          <div class="product-card bg-white rounded-xl shadow-md overflow-hidden h-80 relative">
+          <div class="product-inner h-full">
+            <div class="product-front h-full flex flex-col">
+              <div class="h-48 bg-gray-200 flex items-center justify-center">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+              </div>
+              <div class="p-4 flex-grow flex flex-col">
+                <p class="font-semibold text-gray-900">Wood Chair</p>
+                <p class="text-[#0B7077] font-bold mt-2">$80.00</p>
+                <button class="mt-auto bg-[#0B7077] text-white py-2 rounded-lg btn-hover">Add to Cart</button>
+              </div>
+            </div>
+            <div class="product-back">
+              <h5 class="font-bold text-lg mb-2">Wood Chair</h5>
+              <p class="text-sm mb-4">Handcrafted wooden chair with ergonomic design</p>
+              <div class="flex gap-2 mb-4">
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Ergonomic</span>
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Handcrafted</span>
+              </div>
+              <button class="bg-[#0B7077] text-white py-2 px-4 rounded-lg btn-hover">Quick View</button>
+            </div>
+          </div>
+        </div>
+          <div class="product-card bg-white rounded-xl shadow-md overflow-hidden h-80 relative">
+          <div class="product-inner h-full">
+            <div class="product-front h-full flex flex-col">
+              <div class="h-48 bg-gray-200 flex items-center justify-center">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+              </div>
+              <div class="p-4 flex-grow flex flex-col">
+                <p class="font-semibold text-gray-900">Wood Chair</p>
+                <p class="text-[#0B7077] font-bold mt-2">$80.00</p>
+                <button class="mt-auto bg-[#0B7077] text-white py-2 rounded-lg btn-hover">Add to Cart</button>
+              </div>
+            </div>
+            <div class="product-back">
+              <h5 class="font-bold text-lg mb-2">Wood Chair</h5>
+              <p class="text-sm mb-4">Handcrafted wooden chair with ergonomic design</p>
+              <div class="flex gap-2 mb-4">
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Ergonomic</span>
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Handcrafted</span>
+              </div>
+              <button class="bg-[#0B7077] text-white py-2 px-4 rounded-lg btn-hover">Quick View</button>
+            </div>
+          </div>
+        </div>
+          <div class="product-card bg-white rounded-xl shadow-md overflow-hidden h-80 relative">
+          <div class="product-inner h-full">
+            <div class="product-front h-full flex flex-col">
+              <div class="h-48 bg-gray-200 flex items-center justify-center">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+              </div>
+              <div class="p-4 flex-grow flex flex-col">
+                <p class="font-semibold text-gray-900">Wood Chair</p>
+                <p class="text-[#0B7077] font-bold mt-2">$80.00</p>
+                <button class="mt-auto bg-[#0B7077] text-white py-2 rounded-lg btn-hover">Add to Cart</button>
+              </div>
+            </div>
+            <div class="product-back">
+              <h5 class="font-bold text-lg mb-2">Wood Chair</h5>
+              <p class="text-sm mb-4">Handcrafted wooden chair with ergonomic design</p>
+              <div class="flex gap-2 mb-4">
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Ergonomic</span>
+                <span class="bg-gray-200 px-2 py-1 rounded text-xs">Handcrafted</span>
+              </div>
+              <button class="bg-[#0B7077] text-white py-2 px-4 rounded-lg btn-hover">Quick View</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-<!-- Testimonials -->
-<section class="py-16 bg-white">
-  <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
-    <div class="md:w-1/2 mb-8 md:mb-0">
-      <h4 class="text-3xl font-bold mb-6">What People Are Saying About Us</h4>
-      <div class="flex items-center mb-4">
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Josh Smith" class="w-16 h-16 rounded-full mr-4">
-        <div>
-          <p class="font-bold">Josh Smith</p>
-          <p class="text-sm text-gray-500">Manager of The New York Times</p>
+  <!-- Testimonials Slider -->
+  <section class="py-16 bg-[#0B7077] text-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h4 class="text-3xl font-bold mb-4">What People Are Saying About Us</h4>
+        <p class="text-teal-100 max-w-xl mx-auto">Hear from our satisfied customers about their experience with our furniture</p>
+      </div>
+      
+      <!-- Slider Container -->
+      <div class="swiper-container overflow-hidden">
+        <div class="swiper-wrapper">
+          <!-- Slide 1 -->
+          <div class="swiper-slide">
+            <div class="bg-white text-gray-800 p-8 rounded-xl max-w-2xl mx-auto">
+              <div class="flex items-center mb-6">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Josh Smith" class="w-16 h-16 rounded-full mr-4">
+                <div>
+                  <p class="font-bold text-lg">Josh Smith</p>
+                  <p class="text-sm text-[#0B7077]">Manager of The New York Times</p>
+                </div>
+              </div>
+              <p class="text-gray-700 text-lg italic mb-6 relative pl-6">
+                <i class="fas fa-quote-left text-[#0B7077] absolute left-0 top-0"></i>
+                “They have a perfect touch for making something so professional, interesting and useful for a lot of people.”
+              </p>
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Slide 2 -->
+          <div class="swiper-slide">
+            <div class="bg-white text-gray-800 p-8 rounded-xl max-w-2xl mx-auto">
+              <div class="flex items-center mb-6">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Emma Wilson" class="w-16 h-16 rounded-full mr-4">
+                <div>
+                  <p class="font-bold text-lg">Emma Wilson</p>
+                  <p class="text-sm text-[#0B7077]">Interior Designer</p>
+                </div>
+              </div>
+              <p class="text-gray-700 text-lg italic mb-6 relative pl-6">
+                <i class="fas fa-quote-left text-[#0B7077] absolute left-0 top-0"></i>
+                “The quality of materials and attention to detail in their furniture is exceptional. My clients are always impressed.”
+              </p>
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Slide 3 -->
+          <div class="swiper-slide">
+            <div class="bg-white text-gray-800 p-8 rounded-xl max-w-2xl mx-auto">
+              <div class="flex items-center mb-6">
+                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Michael Chen" class="w-16 h-16 rounded-full mr-4">
+                <div>
+                  <p class="font-bold text-lg">Michael Chen</p>
+                  <p class="text-sm text-[#0B7077]">Home Owner</p>
+                </div>
+              </div>
+              <p class="text-gray-700 text-lg italic mb-6 relative pl-6">
+                <i class="fas fa-quote-left text-[#0B7077] absolute left-0 top-0"></i>
+                “I furnished my entire living room with FurniShop. The pieces are not only beautiful but incredibly comfortable too.”
+              </p>
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <p class="text-gray-700 text-lg italic mb-6">“They are have a perfect touch for make something so professional, interest and useful for a lot of people.”</p>
-      <div class="flex space-x-4">
-        <button class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full">
-          <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <button class="w-10 h-10 flex items-center justify-center bg-[#0B7077] hover:bg-[#095d63] text-white rounded-full">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+        
       </div>
     </div>
-    <div class="md:w-1/2">
-      <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80" alt="Testimonial Interior" class="rounded-xl shadow-lg">
-    </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- Newsletter -->
-  <section class="bg-[#0B7077] py-16 text-white text-center">
-    <h4 class="text-2xl font-bold mb-6">Get more discount Off your order</h4>
-    <form class="flex flex-col sm:flex-row justify-center gap-2 max-w-md mx-auto">
-      <input type="email" placeholder="Enter your email" class="px-4 py-2 text-gray-800 rounded sm:rounded-l">
-      <button class="bg-white text-[#0B7077] px-4 py-2 font-semibold rounded sm:rounded-r">Subscribe</button>
-    </form>
+  <section class="py-16 bg-gray-900 text-white text-center">
+    <div class="max-w-2xl mx-auto px-4">
+      <h4 class="text-3xl font-bold mb-6">Get More Discount Off Your Order</h4>
+      <p class="text-gray-400 mb-8">Subscribe to our newsletter and receive exclusive deals and design inspiration</p>
+      <form class="flex flex-col sm:flex-row justify-center gap-4">
+        <input type="email" placeholder="Enter your email" class="px-6 py-4 text-gray-800 rounded-lg w-full sm:w-auto flex-grow max-w-md">
+        <button class="bg-[#0B7077] text-white px-8 py-4 font-semibold rounded-lg btn-hover">Subscribe</button>
+      </form>
+    </div>
   </section>
 
-<!-- Footer -->
-<!-- Footer -->
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white pt-16 pb-10">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
+        <div class="mb-6 md:mb-0">
+          <div class="text-2xl font-extrabold bg-white text-black px-4 py-1 rounded-sm tracking-wide inline-block">FurniShop</div>
+          <p class="text-gray-400 mt-4 max-w-md">Creating beautiful spaces with quality furniture that transforms houses into homes.</p>
+        </div>
+        <div class="flex space-x-4">
+          <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-[#0B7077] transition">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-[#0B7077] transition">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-[#0B7077] transition">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-[#0B7077] transition">
+            <i class="fab fa-pinterest"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm text-gray-400">
+        <div>
+          <h4 class="font-bold text-white mb-4">Our Products</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:text-white transition">Living Room</a></li>
+            <li><a href="#" class="hover:text-white transition">Bedroom</a></li>
+            <li><a href="#" class="hover:text-white transition">Dining Room</a></li>
+            <li><a href="#" class="hover:text-white transition">Office</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-4">Customer Care</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+            <li><a href="#" class="hover:text-white transition">FAQs</a></li>
+            <li><a href="#" class="hover:text-white transition">Shipping & Returns</a></li>
+            <li><a href="#" class="hover:text-white transition">Warranty</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-4">About Us</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:text-white transition">Our Story</a></li>
+            <li><a href="#" class="hover:text-white transition">Design Philosophy</a></li>
+            <li><a href="#" class="hover:text-white transition">Sustainability</a></li>
+            <li><a href="#" class="hover:text-white transition">Careers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-4">Contact Info</h4>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <i class="fas fa-map-marker-alt mt-1 mr-3 text-[#0B7077]"></i>
+              <span>123 Design Street, Creative City</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-phone-alt mr-3 text-[#0B7077]"></i>
+              <span>(123) 456-7890</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-envelope mr-3 text-[#0B7077]"></i>
+              <span>info@furnishop.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="mt-16 pt-6 border-t border-gray-700 text-center text-gray-500 text-sm">
+        © 2023 FurniShop. All rights reserved. Designed with <i class="fas fa-heart text-red-500"></i> for beautiful homes.
+      </div>
+    </div>
+  </footer>
 
-<!-- Footer -->
-<footer class="bg-gray-900 text-white pt-16 pb-10">
-  <div class="max-w-7xl mx-auto px-4">
-    <img src="./heda.PNG" alt="Lamp Image" class="mx-auto mb-10 max-h-64 object-contain rounded-xl shadow-md" />
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
-      <div class="mb-6 md:mb-0 text-2xl font-extrabold">FurniShop</div>
-      <div class="flex space-x-4">
-        <a href="#" class="hover:text-gray-400"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="hover:text-gray-400"><i class="fab fa-facebook"></i></a>
-        <a href="#" class="hover:text-gray-400"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="hover:text-gray-400"><i class="fab fa-pinterest"></i></a>
-        <a href="#" class="hover:text-gray-400"><i class="fab fa-instagram"></i></a>
-      </div>
-    </div>
-    <div class="grid grid-cols-2 md:grid-cols-6 gap-8 text-sm text-gray-400">
-      <div>
-        <h4 class="font-bold text-white mb-2">Our Products</h4>
-        <ul class="space-y-1">
-          <li>The Support Suite</li>
-          <li>The Sales Suite</li>
-          <li>Support</li>
-          <li>Guide</li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-bold text-white mb-2">Top Features</h4>
-        <ul class="space-y-1">
-          <li>Ticketing System</li>
-          <li>Knowledge Base</li>
-          <li>Community Forums</li>
-          <li>Help Desk Software</li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-bold text-white mb-2">Resources</h4>
-        <ul class="space-y-1">
-          <li>Product Support</li>
-          <li>Request Demo</li>
-          <li>Library</li>
-          <li>Peoplepower Blog</li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-bold text-white mb-2">Company</h4>
-        <ul class="space-y-1">
-          <li>About Us</li>
-          <li>Press</li>
-          <li>Investors</li>
-          <li>Events</li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-bold text-white mb-2">Favourite Things</h4>
-        <ul class="space-y-1">
-          <li>For Enterprise</li>
-          <li>For Startups</li>
-          <li>For Benchmark</li>
-          <li>For Small Business</li>
-        </ul>
-      </div>
-    </div>
-    <div class="mt-10 text-center text-gray-500 text-xs">© NameBrand 2022 - All Rights Reserved</div>
-  </div>
-</footer>
+  <!-- Back to Top Button -->
+  <button id="backToTop" class="fixed bottom-8 right-8 bg-[#0B7077] text-white p-4 rounded-full shadow-lg hover:bg-[#095d63] transition opacity-0 invisible">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Include Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  
+  <script>
+    // Initialize Swiper
+    const swiper = new Swiper('.swiper-container', {
+      loop: true,
+      slidesPerView: 1,
+      spaceBetween: 30,
+      autoplay: {
+        delay: 5000,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.remove('opacity-0', 'invisible');
+        backToTopBtn.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopBtn.classList.remove('opacity-100', 'visible');
+        backToTopBtn.classList.add('opacity-0', 'invisible');
+      }
+    });
+    
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Add animation to elements when they enter the viewport
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fadeIn');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    // Observe sections
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>
-<script>
-  // Tailwind CSS configuration
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          primary: '#0B7077',
-          secondary: '#F4F6F5',
-        },
-      },
-    },
-  };
